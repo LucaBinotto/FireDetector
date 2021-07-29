@@ -1,5 +1,7 @@
 package it.epicode.be;
 
+import java.util.Random;
+
 import it.epicode.be.model.CentroDiControllo;
 import it.epicode.be.model.CentroDiControlloFactory;
 import it.epicode.be.model.InvalidResponseTypeException;
@@ -19,9 +21,23 @@ public class Start {
 		s2.register(uno);
 		s3.register(uno);
 
-		s1.setSmokeLevel(6);
-		s2.setSmokeLevel(9);
-		s3.setSmokeLevel(8);
+		CentroDiControllo due = fact.creaCC("http");
+
+		s1.register(due);
+		s2.register(due);
+		s3.register(due);
+		
+		Random x = new Random();
+		
+		int smokeLevel1 = x.nextInt(11);
+		int smokeLevel2 = x.nextInt(11);
+		int smokeLevel3 = x.nextInt(11);
+		
+		s1.setSmokeLevel(smokeLevel1);
+		s2.setSmokeLevel(smokeLevel2);
+		s3.setSmokeLevel(smokeLevel3);
+		
+		
 		
 	}
 }

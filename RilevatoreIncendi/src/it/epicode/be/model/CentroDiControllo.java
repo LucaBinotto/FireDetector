@@ -1,6 +1,7 @@
 package it.epicode.be.model;
 
 import it.epicode.be.observer.Observer;
+import it.epicode.be.observer.Subject;
 
 public abstract class CentroDiControllo implements Observer  {
 
@@ -9,23 +10,20 @@ public abstract class CentroDiControllo implements Observer  {
 	protected String longitude;
 	protected int smokeLevel;
 	
-	private static final int tolerance = 5;
+	private static final int TOLERANCE = 5;
 	
 	
 	@Override
-	public void update(int smokeLevel,int idSonda, String latitude, String longitude) {
-		this.smokeLevel=smokeLevel;
-		this.idSonda=idSonda;
-		this.latitude=latitude;
-		this.longitude=longitude;
-		if(smokeLevel>tolerance) {
+	public void update(Subject sonda) {
+		this.smokeLevel=sonda.getSmokeLevel();
+		this.idSonda=sonda.getIdSonda();
+		this.latitude=sonda.getLatitude();
+		this.longitude=sonda.getLongitude();
+		if(smokeLevel>TOLERANCE) {
 			setAlarm();
 		}
 	}
 
-	public void setAlarm() {
-		System.out.println("http://host/alarm?=idsonda="+idSonda+"&lat="+latitude+"&lon="+longitude+"&smokelevel="+smokeLevel);
-
-	}
+	public abstract void setAlarm();
 	
 }
