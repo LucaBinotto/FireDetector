@@ -25,5 +25,11 @@ public abstract class CentroDiControllo implements Observer  {
 	}
 
 	public abstract void setAlarm();
+
+	public int getSmokeLevel() {
+		return smokeLevel;
+	}
+	
+	
 	
 }
