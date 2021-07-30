@@ -30,13 +30,6 @@ class CentroDiControlloTest {
 	public void setUp() {
 	    System.setOut(new PrintStream(outputStreamCaptor));
 	}
-	@Test
-	void givenSystemOutRedirection_whenInvokePrintln_thenOutputCaptorSuccess() {
-	    System.out.println("Hello Baeldung Readers!!");
-	        
-	    assertEquals("Hello Baeldung Readers!!", outputStreamCaptor.toString()
-	      .trim());
-	}
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws InvalidResponseTypeException {
