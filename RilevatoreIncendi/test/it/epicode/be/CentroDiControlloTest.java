@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import it.epicode.be.factory.CentroDiControlloFactory;
 import it.epicode.be.model.CentroDiControllo;
-import it.epicode.be.model.CentroDiControlloFactory;
 import it.epicode.be.model.CentroDiControlloHttp;
 import it.epicode.be.model.CentroDiControlloSMS;
 import it.epicode.be.model.InvalidResponseTypeException;

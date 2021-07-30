@@ -2,8 +2,8 @@ package it.epicode.be;
 
 import java.util.Random;
 
+import it.epicode.be.factory.CentroDiControlloFactory;
 import it.epicode.be.model.CentroDiControllo;
-import it.epicode.be.model.CentroDiControlloFactory;
 import it.epicode.be.model.InvalidResponseTypeException;
 import it.epicode.be.model.Sonda;
 
