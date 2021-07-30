@@ -36,8 +36,12 @@ public class Start {
 		s1.setSmokeLevel(smokeLevel1);
 		s2.setSmokeLevel(smokeLevel2);
 		s3.setSmokeLevel(smokeLevel3);
-		
-		
+		System.out.println();
+		System.out.println("#INVIOSMS#\r\n"
+				+ "ALLARME SCATTATO dalla sonda 1\r\n"
+				+ "LATITUDINE 41.902782\r\n"
+				+ "LONGITUDINE 12.597846\r\n"
+				+ "LIVELLO DI FUMO 6");
 		
 	}
 }

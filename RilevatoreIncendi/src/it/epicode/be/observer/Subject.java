@@ -11,13 +11,7 @@ public class Subject {
 	protected int smokeLevel;
 	
 	protected Subject() {}
-	private Subject(int idSonda, String latitude, String longitude, int smokeLevel) {
-		this.idSonda = idSonda;
-		this.latitude = latitude;
-		this.longitude = longitude;
-		this.smokeLevel = smokeLevel;
-	}
-
+	
 	public void register(Observer obs) {
 		observers.add(obs);
 	}
@@ -28,7 +22,7 @@ public class Subject {
 	
 	public void notifyObserver() {
 		for (Observer obs : observers) {
-			obs.update(new Subject(idSonda,latitude,longitude,smokeLevel));
+			obs.update(this);
 		}
 	}
 	public int getIdSonda() {

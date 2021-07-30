@@ -2,7 +2,11 @@ package it.epicode.be;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -21,6 +25,19 @@ class CentroDiControlloTest {
 	private static Sonda s1;
 	private static Sonda s2;
 	private static Sonda s3;
+	private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+	@BeforeEach
+	public void setUp() {
+	    System.setOut(new PrintStream(outputStreamCaptor));
+	}
+	@Test
+	void givenSystemOutRedirection_whenInvokePrintln_thenOutputCaptorSuccess() {
+	    System.out.println("Hello Baeldung Readers!!");
+	        
+	    assertEquals("Hello Baeldung Readers!!", outputStreamCaptor.toString()
+	      .trim());
+	}
+	
 	@BeforeAll
 	static void setUpBeforeClass() throws InvalidResponseTypeException {
 		CentroDiControlloFactory fact = new CentroDiControlloFactory();
@@ -44,13 +61,28 @@ class CentroDiControlloTest {
 		assertTrue(http.getSmokeLevel()<= 5);
 	}
 	@Test
-	void testSmokeLevelMoreThanAlarmLevel() {
+	void testSmokeLevelMoreThanAlarmLevelSMS() {
 		s1.setSmokeLevel(6);
 		assertTrue(sms.getSmokeLevel()> 5);
-		System.out.println();
+		assertEquals("#INVIOSMS#\n"
+				+ "ALLARME SCATTATO dalla sonda 1\n"
+				+ "LATITUDINE 41.902782\n"
+				+ "LONGITUDINE 12.597846\n"
+				+ "LIVELLO DI FUMO 6", outputStreamCaptor.toString()
+			      .trim());
+	}
+	
+	@Test
+	void testSmokeLevelMoreThanAlarmLevelHttp() {
 		s2.setSmokeLevel(8);
 		assertTrue(http.getSmokeLevel()> 5);
+		assertEquals("Chiamata rest a http://host/alarm?=idsonda=2&lat=88.696969&lon=12.496366&smokelevel=8", outputStreamCaptor.toString()
+			      .trim());
 	}
+	
+	
+	
+	
 	@Test
 	void testCreateSmsControl() throws InvalidResponseTypeException {
 		CentroDiControlloFactory fact = new CentroDiControlloFactory();
