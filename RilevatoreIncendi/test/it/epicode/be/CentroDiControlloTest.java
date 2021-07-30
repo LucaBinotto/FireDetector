@@ -3,7 +3,10 @@ package it.epicode.be;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import it.epicode.be.factory.CentroDiControlloFactory;
 import it.epicode.be.model.CentroDiControllo;
@@ -11,12 +14,13 @@ import it.epicode.be.model.CentroDiControlloHttp;
 import it.epicode.be.model.CentroDiControlloSMS;
 import it.epicode.be.model.InvalidResponseTypeException;
 import it.epicode.be.model.Sonda;
-
+@TestMethodOrder(OrderAnnotation.class)
 class CentroDiControlloTest {
 	private static CentroDiControllo sms;
 	private static CentroDiControllo http; 
 	private static Sonda s1;
 	private static Sonda s2;
+	private static Sonda s3;
 	@BeforeAll
 	static void setUpBeforeClass() throws InvalidResponseTypeException {
 		CentroDiControlloFactory fact = new CentroDiControlloFactory();
@@ -66,4 +70,18 @@ class CentroDiControlloTest {
 		assertThrows(InvalidResponseTypeException.class,() -> fact.creaCC("dasd"));
 	}
 
+	@Test
+	@Order(1)
+	void testAddCentroControllo(){
+		s3 = new Sonda("32424242424234", "312412415153");
+		s3.register(http);
+		assertTrue(s3.getObservers().contains(http));
+	}
+	
+	@Test
+	@Order(2)
+	void testRemoveCentroControllo(){
+		s3.unregister(http);
+		assertTrue(!s3.getObservers().contains(http));
+	}
 }

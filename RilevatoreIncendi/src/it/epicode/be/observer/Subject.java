@@ -53,6 +53,9 @@ public class Subject {
 		this.smokeLevel = smokeLevel;
 		notifyObserver();
 	}
+	public ArrayList<Observer> getObservers() {
+		return observers;
+	}
 	
 	
 	
